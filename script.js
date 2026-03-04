@@ -1,0 +1,158 @@
+const tarefa = document.getElementById("input-tarefa");
+const botaoAdicionar = document.getElementById("botao-adicionar");
+const listaTarefa = document.getElementById("lista-tarefa");
+const popup = document.getElementById("meu-popup");
+const fecharPopup = document.getElementById("fechar-popup");
+
+// --- EVENTOS PRINCIPAIS ---
+
+// Carregar dados assim que abrir a página
+document.addEventListener("DOMContentLoaded", carregarDados);
+
+botaoAdicionar.addEventListener("click", () => {
+   const valor = tarefa.value;
+   if (valor === "") {
+      popup.style.display = "flex";
+   } else {
+      adicionarTarefaNaTela(valor);
+      tarefa.value = "";
+      tarefa.focus();
+      salvarDados(); // Salva após adicionar
+   }
+});
+
+fecharPopup.addEventListener("click", () => {
+   popup.style.display = "none";
+   tarefa.focus();
+});
+
+// --- A "FÁBRICA" DE TAREFAS ---
+
+function adicionarTarefaNaTela(texto) {
+   const textoLista = document.createElement("li");
+
+   // Criamos um span para o texto para não bugar com os botões
+   const spanTexto = document.createElement("span");
+   spanTexto.innerText = texto;
+   textoLista.appendChild(spanTexto);
+
+   const divBotoes = document.createElement("div");
+   divBotoes.classList.add("area-botoes");
+
+   // Botão Editar
+   const botaoEditar = document.createElement("button");
+   botaoEditar.classList.add("btn-edit");
+   botaoEditar.innerHTML = '<i class="bi bi-pencil-square"></i>';
+   botaoEditar.onclick = () => {
+      const novoTexto = prompt("Edite sua tarefa:", spanTexto.innerText);
+      if (novoTexto !== null && novoTexto.trim() !== "") {
+         spanTexto.innerText = novoTexto;
+         salvarDados(); // Salva após editar
+      }
+   };
+
+   // Botão Remover
+   const botaoRemover = document.createElement("button");
+   botaoRemover.classList.add("btn-delete");
+   botaoRemover.innerHTML = '<i class="bi bi-trash"></i>';
+   botaoRemover.onclick = () => {
+      textoLista.remove();
+      salvarDados(); // Salva após remover
+   };
+
+   divBotoes.appendChild(botaoEditar);
+   divBotoes.appendChild(botaoRemover);
+   textoLista.appendChild(divBotoes);
+   listaTarefa.appendChild(textoLista);
+}
+
+// --- FUNÇÕES DE MEMÓRIA (LocalStorage) ---
+
+function salvarDados() {
+   const todosOsSpans = document.querySelectorAll("li span");
+   const arrayTarefas = [];
+
+   todosOsSpans.forEach(span => {
+      arrayTarefas.push(span.innerText);
+   });
+
+   localStorage.setItem("lista_tarefas", JSON.stringify(arrayTarefas));
+}
+
+function carregarDados() {
+   const dados = localStorage.getItem("lista_tarefas");
+   if (dados) {
+      const tarefasRecuperadas = JSON.parse(dados);
+      tarefasRecuperadas.forEach(t => adicionarTarefaNaTela(t));
+   }
+}
+
+
+// const tarefa = document.getElementById("input-tarefa");
+// const botaoAdicionar = document.getElementById("botao-adicionar");
+// const listaTarefa = document.getElementById("lista-tarefa");
+// const popup = document.getElementById("meu-popup");
+// const fecharPopup = document.getElementById("fechar-popup");
+
+// botaoAdicionar.addEventListener("click", textoTarefa)
+// fecharPopup.addEventListener("click", () => {
+//    popup.style.display = "none";
+//    tarefa.focus();
+// })
+
+// function textoTarefa() {
+//    const li = tarefa.value;
+//    if (li === "") {
+//       popup.style.display = "flex";
+//    } else {
+//       const textoLista = document.createElement("li");
+//       const spanTexto = document.createElement("span");
+//       spanTexto.innerText = li;
+//       textoLista.appendChild(spanTexto);
+//       const botaoRemover = document.createElement("button");
+//       botaoRemover.innerHTML = '<i class="bi bi-trash"></i>';
+//       botaoRemover.onclick = () => {
+//          textoLista.remove();
+//          salvarDados();
+//       }
+//       const botaoEditar = document.createElement("button");
+//       botaoEditar.innerHTML = '<i class="bi bi-pencil-square"></i>';
+//       botaoEditar.onclick = () => {
+//          const novoTexto = prompt("Edite sua tarefa:", textoLista.firstChild.textContent);
+//          if (novoTexto !== null && novoTexto.trim() !== "") {
+//             textoLista.firstChild.textContent = novoTexto;
+//          }
+//          salvarDados();
+//       }
+//       const divBotoes = document.createElement("div"); // Cria a "caixinha"
+//       divBotoes.classList.add("area-botoes");         // Dá o nome da classe a ela
+
+//       divBotoes.appendChild(botaoEditar);              // Coloca o Editar dentro da caixinha
+//       divBotoes.appendChild(botaoRemover);             // Coloca o Remover dentro da caixinha
+
+//       textoLista.appendChild(divBotoes);               // Coloca a caixinha dentro da linha da lista
+//       listaTarefa.appendChild(textoLista);            // Coloca a linha na lista principal
+//       salvarDados();
+//       botaoEditar.classList.add("btn-edit");
+//       botaoRemover.classList.add("btn-delete")
+//       tarefa.value = "";
+//       tarefa.focus();
+//    }
+//    return;
+// }
+
+// function salvarDados() {
+//    const itensLista = document.querySelectorAll("li span"); // Pega o texto de cada tarefa
+//    const tarefasParaSalvar = [];
+
+//    itensLista.forEach(item => {
+//       tarefasParaSalvar.push(item.innerText);
+//    });
+
+//    // Transforma a lista em texto e guarda na "gaveta" tarefas
+//    localStorage.setItem("tarefas", JSON.stringify(tarefasParaSalvar));
+// }
+
+
+
+

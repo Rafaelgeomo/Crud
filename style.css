@@ -1,0 +1,169 @@
+body {
+   display: flex;
+   flex-direction: column;
+   padding-top: 15px;
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+   background-color: #f4f7f6;
+   margin: 0;
+}
+
+.container {
+   background: white;
+   width: 90%;
+   max-width: 500px;
+   /* Largura fixa para manter tudo alinhado */
+   margin: 50px auto;
+   /* Centraliza o card na tela horizontalmente */
+   padding: 30px;
+   border-radius: 12px;
+   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+   margin-bottom: -10px;
+   /* Diminua esse valor até ficar do seu agrado */
+   text-align: center;
+}
+
+.lista {
+   display: flex;
+   gap: 10px;
+   /* Espaço entre input e botão */
+   width: 100%;
+   /* Ocupa toda a largura do card */
+   margin-bottom: 30px;
+}
+
+#input-tarefa {
+   flex: 1;
+   /* O input cresce para ocupar o espaço disponível */
+   padding: 12px;
+   border: 2px solid #e0e0e0;
+   border-radius: 8px;
+   outline: none;
+}
+
+#input-tarefa:focus {
+   border-color: #2ecc71;
+   /* Cor de destaque ao clicar */
+}
+
+ul {
+   padding: 0;
+   margin: 0;
+   width: 100%;
+   /* Garante que a lista não encolha */
+}
+
+li {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 15px;
+   background: #fdfdfd;
+   border-radius: 8px;
+   margin-bottom: 12px;
+   border-left: 6px solid #2ecc71;
+   /* Aquele detalhe verde que você colocou */
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* A nova classe para organizar os botões */
+.area-botoes {
+   display: flex;
+   gap: 8px;
+   /* Espaço entre o lápis e o X */
+}
+
+div input {
+   padding: 6px 18px;
+}
+
+div button {
+   background-color: #04AA6D;
+   color: white;
+   padding: 6px 18px;
+   border-radius: 5px;
+}
+
+div button:hover {
+   background-color: #038756;
+   cursor: pointer;
+}
+
+/* O fundo escurecido que cobre a tela toda */
+#meu-popup {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.5);
+   /* Fundo transparente preto */
+   display: none;
+   /* COMEÇA ESCONDIDO */
+   justify-content: center;
+   align-items: center;
+}
+
+/* A caixinha branca no centro */
+.popup-conteudo {
+   background: white;
+   padding: 20px;
+   border-radius: 8px;
+   text-align: center;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-delete {
+   background-color: #ff4d4d;
+   /* Vermelho alerta */
+   color: white;
+   border: none;
+   padding: 4px 8px;
+   margin-left: 10px;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+.btn-delete:hover {
+   background-color: #cc0000;
+}
+
+.btn-edit {
+   background-color: #ffee00;
+   /* Vermelho alerta */
+   color: white;
+   border: none;
+   padding: 4px 8px;
+   margin-left: 10px;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+.btn-edit:hover {
+   background-color: #a19704;
+}
+
+.bi {
+   font-size: 1.2rem;
+   /* Ajusta o tamanho do desenho */
+   vertical-align: middle;
+}
+
+.btn-edit {
+   background-color: #ffeb3b;
+   color: #000;
+   border: none;
+}
+
+/* Amarelo */
+.btn-delete {
+   background-color: #f44336;
+   color: #fff;
+   border: none;
+}
+
+/* Vermelho */
