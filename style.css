@@ -182,3 +182,9 @@ div button:hover {
    transition: 0.3s;
    /* Deixa a transição suave */
 }
+
+#contador {
+   color: #666;
+   font-size: 0.9rem;
+   margin-bottom: 20px;
+}
