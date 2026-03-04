@@ -70,6 +70,12 @@ li {
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+li span {
+   cursor: pointer;
+   flex: 1;
+   /* Garante que o clique funcione em toda a área do texto */
+}
+
 /* A nova classe para organizar os botões */
 .area-botoes {
    display: flex;
@@ -166,4 +172,13 @@ div button:hover {
    border: none;
 }
 
-/* Vermelho */
+.concluida {
+   text-decoration: line-through;
+   /* Risca o texto */
+   opacity: 0.5;
+   /* Deixa o texto mais "apagadinho" */
+   color: #888;
+   /* Muda para um cinza neutro */
+   transition: 0.3s;
+   /* Deixa a transição suave */
+}

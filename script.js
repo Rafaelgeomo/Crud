@@ -28,12 +28,20 @@ fecharPopup.addEventListener("click", () => {
 
 // --- A "FÁBRICA" DE TAREFAS ---
 
-function adicionarTarefaNaTela(texto) {
+function adicionarTarefaNaTela(texto, concluida = false) {
    const textoLista = document.createElement("li");
-
    // Criamos um span para o texto para não bugar com os botões
    const spanTexto = document.createElement("span");
    spanTexto.innerText = texto;
+
+   if (concluida) {
+      spanTexto.classList.add("concluida");
+   }
+   // LÓGICA DO CLIQUE:
+   spanTexto.onclick = () => {
+      spanTexto.classList.toggle("concluida"); // Adiciona ou remove a classe ao clicar
+      salvarDados(); // Salva o novo estado (riscado ou não)
+   };
    textoLista.appendChild(spanTexto);
 
    const divBotoes = document.createElement("div");
@@ -69,11 +77,15 @@ function adicionarTarefaNaTela(texto) {
 // --- FUNÇÕES DE MEMÓRIA (LocalStorage) ---
 
 function salvarDados() {
-   const todosOsSpans = document.querySelectorAll("li span");
+   const todosOsItens = document.querySelectorAll("li");
    const arrayTarefas = [];
 
-   todosOsSpans.forEach(span => {
-      arrayTarefas.push(span.innerText);
+   todosOsItens.forEach(li => {
+      const span = li.querySelector("span");
+      arrayTarefas.push({
+         texto: span.innerText,
+         pronta: span.classList.contains("concluida") // Salva true ou false
+      });
    });
 
    localStorage.setItem("lista_tarefas", JSON.stringify(arrayTarefas));
@@ -83,7 +95,16 @@ function carregarDados() {
    const dados = localStorage.getItem("lista_tarefas");
    if (dados) {
       const tarefasRecuperadas = JSON.parse(dados);
-      tarefasRecuperadas.forEach(t => adicionarTarefaNaTela(t));
+
+      tarefasRecuperadas.forEach(t => {
+         // Verificamos se 't' é um objeto. Se for texto antigo, ignoramos ou tratamos
+         if (typeof t === "object" && t.texto) {
+            adicionarTarefaNaTela(t.texto, t.pronta);
+         } else if (typeof t === "string") {
+            // Caso ainda tenha restos de textos simples, ele carrega sem erro
+            adicionarTarefaNaTela(t, false);
+         }
+      });
    }
 }
 
